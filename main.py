@@ -19,6 +19,7 @@ def main():
     
     while True:
         try:
+            clear()
             print("To-Do List", "\n")
             
             if not todolist: # if the list is empty
@@ -26,10 +27,10 @@ def main():
             else:
                 print(tabulate(todolist, headers=["Index", "Task", "Completed"], showindex="always"), "\n")
             
-            print("Choose an option:")
+            print("Choose an option:\n")
             
             if todolist:
-                print("1: Add Task", "\n2: Remove Task\n3: Set Completed/Uncompleted\n4: Rename Task\n5: Swap Tasks" + (" | Deactivated - List is too short" if len(todolist) < 2 else "") + "\n6: Exit")
+                print("1: Add Task", "\n2: Remove Task\n3: Set Completed/Uncompleted\n4: Rename Task\n5: Swap Tasks" + (" | Deactivated - List is too short" if len(todolist) < 2 else "") + "\n6: Clear List\n7: Exit")
             else:
                 print("1: Add Task\n2: Exit")
             
@@ -83,8 +84,16 @@ def main():
                 todolist[idx1], todolist[idx2] = todolist[idx2], todolist[idx1]
                 
                 clear()
-            elif option == "6" and todolist or option == "2" and not todolist:
-                exit()
+            elif option == "6" and todolist:
+                confirm = input("Are you sure? (y/n) ").lower()
+                
+                if confirm == "y" or confirm == "yes":
+                    todolist.clear()
+            elif option == "7" and todolist or option == "2" and not todolist:
+                confirm = input("Are you sure? (y/n) ").lower()
+                
+                if confirm == "y" or confirm == "yes":
+                    exit()
             else:
                 clear()
                 continue
